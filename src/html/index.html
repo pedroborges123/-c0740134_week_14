@@ -28,13 +28,32 @@
         async defer></script>
 
     <script>
-        var map;
+        var marker;
+       
         function initMap() {
+            var map;
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8
+                center: { lat: -20.253071, lng: -40.266828 },
+                zoom: 18
             });
-        }</script>
+            marker = new google.maps.Marker({
+                position: map.center,
+                title: "Home",
+                animation: google.maps.Animation.BOUNCE,
+                map: map,
+                data: "!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-20.253071!4d-40.2668281"
+            });
+            marker.addListener('click', toggleBounce);
+        }
+
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+    </script>
 </body>
 
 </html>
