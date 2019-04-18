@@ -1,100 +1,107 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
+<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MAPS</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../assets/js/script.js"></script>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>MAPS</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <style>
+            #map {
+                height: 100%;
+            }
 
-<body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <div class="content">
-        <div id="map"></div>
-    </div>
+            /* Optional: Makes the sample page fill the window. */
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgYFOmoJEWPU65OD0eO7x8IPQEJc-KnqY&callback=initMap"
-        async defer></script>
+            .content {
+                width: 80%;
+                left: auto;
+                right: auto;
+                margin-left: auto;
+                margin-right: auto;
+                border: 1px solid #ccc;
+                height: 80%;
+            }
+        </style>
+    </head>
 
-    <script>
+    <body>
+        <div class="content">
+            <div id="map"></div>
+        </div>
 
-        var markers = [{ label: "Home", position: { lat: -20.253071, lng: -40.266828 }, instagram: "https://www.instagram.com/p/BwKOzAtgwVy/embed" },
-        { label: "Where I was born", position: { lat: -21.153778, lng: -41.5751529 }, instagram: "https://www.instagram.com/p/BwAq_m5ANfk/embed"  },
-        { label: "Place that I traveled: Foz do Iguaçu", position: { lat: -25.6837554, lng: -54.4434194 }, instagram: "https://www.instagram.com/p/BttljcbBAjB/embed"  },
-        { label: "NOW", position: { lat: 43.773849, lng: -79.3353191 }, instagram: "https://www.instagram.com/p/BRWNPXIhxqG/embed"  },
-        { label: "Place that I traveled: Natal", position: { lat: -5.7997439, lng: -35.2922849 }, instagram: "https://www.instagram.com/p/BwZcMB1j0X2/embed"  },
-        { label: "Place that I traveled: Rio de Janeiro", position: { lat: -22.9525134, lng: -43.211219 }, instagram: "https://www.instagram.com/p/BwVZsNlnFQ4/embed"  }];
-        var map;
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgYFOmoJEWPU65OD0eO7x8IPQEJc-KnqY&callback=initMap"
+            async defer></script>
 
-        function initMap() {
+        <script>
 
-            var bounds = new google.maps.LatLngBounds();
-            var infowindow = new google.maps.InfoWindow();
+            var markers = [{ label: "Home", position: { lat: -20.253071, lng: -40.266828 }, instagram: "https://www.instagram.com/p/BwKOzAtgwVy/embed" },
+            { label: "Where I was born", position: { lat: -21.153778, lng: -41.5751529 }, instagram: "https://www.instagram.com/p/BwAq_m5ANfk/embed" },
+            { label: "Place that I traveled: Foz do Iguaçu", position: { lat: -25.6837554, lng: -54.4434194 }, instagram: "https://www.instagram.com/p/BttljcbBAjB/embed" },
+            { label: "NOW", position: { lat: 43.773849, lng: -79.3353191 }, instagram: "https://www.instagram.com/p/BRWNPXIhxqG/embed" },
+            { label: "Place that I traveled: Natal", position: { lat: -5.7997439, lng: -35.2922849 }, instagram: "https://www.instagram.com/p/BwZcMB1j0X2/embed" },
+            { label: "Place that I traveled: Rio de Janeiro", position: { lat: -22.9525134, lng: -43.211219 }, instagram: "https://www.instagram.com/p/BwVZsNlnFQ4/embed" }];
+            var map;
 
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -20.253071, lng: -40.266828 },
-                zoom: 3
-            });
-            var i = 0;
-            markers.forEach(element => {
-                var marker = new google.maps.Marker({
-                    position: element.position,
-                    title: element.label,
-                    map: map,
+            function initMap() {
 
+                var bounds = new google.maps.LatLngBounds();
+                var infowindow = new google.maps.InfoWindow();
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: -20.253071, lng: -40.266828 },
+                    zoom: 3
                 });
-                //extend the bounds to include each marker's position
-                bounds.extend(marker.position);
-                let content = '<div>'+
-                '<h3>'+element.label+'</h3>'+
-                '<p>'+
-                '<iframe src="'+element.instagram+'" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>'+
-                '</p>'+
-                '</div>';
+                var i = 0;
+                markers.forEach(element => {
+                    var marker = new google.maps.Marker({
+                        position: element.position,
+                        title: element.label,
+                        map: map,
+
+                    });
+                    //extend the bounds to include each marker's position
+                    bounds.extend(marker.position);
+                    let content = '<div>' +
+                        '<h3>' + element.label + '</h3>' +
+                        '<p>' +
+                        '<iframe src="' + element.instagram + '" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>' +
+                        '</p>' +
+                        '</div>';
 
 
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infowindow.setContent(content);
-                        infowindow.open(map, marker);
-                        map.setZoom(12);
-                        map.setCenter(element.position);
-                    }
-                })(marker, i));
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent(content);
+                            infowindow.open(map, marker);
+                            map.setZoom(12);
+                            map.setCenter(element.position);
+                        }
+                    })(marker, i));
 
-                i++;
-            });
+                    i++;
+                });
 
-            //now fit the map to the newly inclusive bounds
-            map.fitBounds(bounds);
-
-            //(optional) restore the zoom level after the map is done scaling
-            var listener = google.maps.event.addListener(infowindow, "closeclick", function () {
-                map.setZoom(3);
+                //now fit the map to the newly inclusive bounds
                 map.fitBounds(bounds);
-            });
 
-        }
+                //(optional) restore the zoom level after the map is done scaling
+                var listener = google.maps.event.addListener(infowindow, "closeclick", function () {
+                    map.setZoom(3);
+                    map.fitBounds(bounds);
+                });
 
-        function callWeather() {
-            console.log();
-        }
+            }
+        </script>
 
-
-    </script>
-
-</body>
+    </body>
 
 </html>
