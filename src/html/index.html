@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../assets/js/script.js" ></script>
+    <script src="../assets/js/script.js"></script>
 </head>
 
 <body>
@@ -29,35 +29,65 @@
         async defer></script>
 
     <script>
-        var marker;
-       
+
+        var markers = [{ label: "Home", position: { lat: -20.253071, lng: -40.266828 } },
+        { label: "Where I was born", position: { lat: -21.153778, lng: -41.5751529 } },
+        { label: "Place that I traveled: Foz do Iguaçu", position: { lat: -25.6837554, lng: -54.4434194 } },
+        { label: "NOW", position: { lat: 43.773849, lng: -79.3353191 } },
+        { label: "Place that I traveled: Natal", position: { lat: -5.7997439, lng: -35.2922849 } },
+        { label: "Place that I traveled: Rio de Janeiro", position: { lat: -22.9525134, lng: -43.211219 } },];
+        var map;
+
         function initMap() {
-            var map;
+
+            var bounds = new google.maps.LatLngBounds();
+            var infowindow = new google.maps.InfoWindow();
+
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: -20.253071, lng: -40.266828 },
-                zoom: 18
+                zoom: 3
             });
-            marker = new google.maps.Marker({
-                position: map.center,
-                title: "Home",
-                animation: google.maps.Animation.BOUNCE,
-                map: map,
-                data: "!3m1!4b1!4m6!3m5!1s0x0:0x0!7e2!8m2!3d-20.253071!4d-40.2668281"
+            var i = 0;
+            markers.forEach(element => {
+                var marker = new google.maps.Marker({
+                    position: element.position,
+                    title: element.label,
+                    map: map,
+
+                });
+                //extend the bounds to include each marker's position
+                bounds.extend(marker.position);
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(element.label);
+                        infowindow.open(map, marker);
+                        map.setZoom(12);
+                        map.setCenter(element.position);
+                    }
+                })(marker, i));
+
+                i++;
             });
-            marker.addListener('click', toggleBounce);
+
+            //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
+
+            //(optional) restore the zoom level after the map is done scaling
+            var listener = google.maps.event.addListener(infowindow, "closeclick", function () {
+                map.setZoom(3);
+                map.fitBounds(bounds);
+            });
+
         }
 
-        function toggleBounce() {
-            if (marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-            } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
+        function callWeather() {
+            console.log();
         }
 
 
     </script>
-    
+
 </body>
 
 </html>
