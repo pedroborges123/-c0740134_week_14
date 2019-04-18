@@ -30,12 +30,12 @@
 
     <script>
 
-        var markers = [{ label: "Home", position: { lat: -20.253071, lng: -40.266828 } },
-        { label: "Where I was born", position: { lat: -21.153778, lng: -41.5751529 } },
-        { label: "Place that I traveled: Foz do Iguaçu", position: { lat: -25.6837554, lng: -54.4434194 } },
-        { label: "NOW", position: { lat: 43.773849, lng: -79.3353191 } },
-        { label: "Place that I traveled: Natal", position: { lat: -5.7997439, lng: -35.2922849 } },
-        { label: "Place that I traveled: Rio de Janeiro", position: { lat: -22.9525134, lng: -43.211219 } },];
+        var markers = [{ label: "Home", position: { lat: -20.253071, lng: -40.266828 }, instagram: "https://www.instagram.com/p/BwKOzAtgwVy/embed" },
+        { label: "Where I was born", position: { lat: -21.153778, lng: -41.5751529 }, instagram: "https://www.instagram.com/p/BwAq_m5ANfk/embed"  },
+        { label: "Place that I traveled: Foz do Iguaçu", position: { lat: -25.6837554, lng: -54.4434194 }, instagram: "https://www.instagram.com/p/BttljcbBAjB/embed"  },
+        { label: "NOW", position: { lat: 43.773849, lng: -79.3353191 }, instagram: "https://www.instagram.com/p/BRWNPXIhxqG/embed"  },
+        { label: "Place that I traveled: Natal", position: { lat: -5.7997439, lng: -35.2922849 }, instagram: "https://www.instagram.com/p/BwZcMB1j0X2/embed"  },
+        { label: "Place that I traveled: Rio de Janeiro", position: { lat: -22.9525134, lng: -43.211219 }, instagram: "https://www.instagram.com/p/BwVZsNlnFQ4/embed"  }];
         var map;
 
         function initMap() {
@@ -57,10 +57,17 @@
                 });
                 //extend the bounds to include each marker's position
                 bounds.extend(marker.position);
+                let content = '<div>'+
+                '<h3>'+element.label+'</h3>'+
+                '<p>'+
+                '<iframe src="'+element.instagram+'" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>'+
+                '</p>'+
+                '</div>';
+
 
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infowindow.setContent(element.label);
+                        infowindow.setContent(content);
                         infowindow.open(map, marker);
                         map.setZoom(12);
                         map.setCenter(element.position);
